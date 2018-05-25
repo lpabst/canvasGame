@@ -1,18 +1,18 @@
 var Entities = {
     init: function(data){
         var background = {
-            sprite: new Entities.helpers.Sprite(data.backgroundSprite, 0, 0, 5000, 5000),
+            sprite: new Entities.helpers.Sprite(data.backgroundSprite, 0, 0, 1520, 1130),
             x: 0,
-            y: -15,
+            y: 0,
             w: 1000,
             h: 800,
         };
 
-        var jack = new Entities.helpers.Jack(data.spriteSheet, 60, 0, 18, 12);
+        var jack = new Entities.helpers.Jack(data.spriteSheet, 100, 20, 80, 65);
         var exitPipe = new Entities.helpers.ExitPipe(50, 100, 30, 80);
 
-        var coinLocations = [[80, 60], [80, 40], [100, 40], [100, 60], [120, 40], [120, 60], [140, 40], [140, 60], [160, 40], [160, 60]];
-        var wallLocations = [[0, -50, 1000, 20], [0, 100, 1000, 20], [0, 0, 20, 1000], [100, 0, 20, 1000]];
+        var coinLocations = [[250, 350], [250, 250], [350, 250], [350, 350], [450, 250], [450, 350], [550, 250], [550, 350], [650, 250], [650, 350]];
+        var wallLocations = [[0, 0, 1000, 0], [0, 0, 0, 1000], [0, 1000, 1000, 0], [1000, 0, 0, 1000], [80, 450, 920, 0]];
          
         data.entities = {};
         data.entities.background = background;
@@ -22,7 +22,7 @@ var Entities = {
         data.entities.wallsArray = [];
 
         coinLocations.forEach(function(coinLocation){
-            data.entities.coinsArray.push(new Entities.helpers.Coin(data.coinSprite, coinLocation[0], coinLocation[1], 13, 10));
+            data.entities.coinsArray.push(new Entities.helpers.Coin(data.coinSprite, coinLocation[0], coinLocation[1], 45, 35));
         })
         wallLocations.forEach( function(wall) {
             data.entities.wallsArray.push(new Entities.helpers.Wall(wall[0], wall[1], wall[2], wall[3]))
