@@ -3,12 +3,12 @@ var Input = {
         var self = this;
 
         $(window).on('keydown', function(){
-            self.helpers.down[event.keyCode] = true;
+            Input.helpers.down[event.keyCode] = true;
         });
 
-        $(window).on('keyup', function(){
-            delete self.helpers.down[event.keycode];
-            delete self.helpers.pressed[event.keyCode];
+        $(window).keyup(function(){
+            delete Input.helpers.down[event.keyCode];
+            delete Input.helpers.pressed[event.keyCode];
         })
     },
 
@@ -22,12 +22,12 @@ var Input = {
             }else{
                 jack.x -= jack.velX;
             }
-
+            
             jack.direction = 'left';
         }
-
+        
         // Right arrow
-        if (Input.helpers.isDown(39)){
+        else if (Input.helpers.isDown(39)){
             if (jack.velY === 0){
                 jack.currentState = jack.states.walking;
             }else{
@@ -38,8 +38,13 @@ var Input = {
         }
 
         // Up arrow
-        if (Input.helpers.isPressed(38)){
+        else if (Input.helpers.isPressed(38)){
             jack.currentState = jack.states.jumping;
+        }
+
+        // Otherwise he's just standing there
+        else{
+            jack.currentState = jack.states.standing;
         }
     },
 
