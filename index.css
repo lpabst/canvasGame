@@ -1,0 +1,13 @@
+.canvasWrapper{
+    width: 1000px;
+    height: 800px;
+    margin: calc(50vh - 420px) auto;
+    position: relative;
+}
+
+.canvasWrapper canvas{
+    width: 1000px;
+    height: 800px;
+    position: absolute;
+    background-color: transparent;
+}
