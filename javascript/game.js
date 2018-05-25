@@ -70,11 +70,12 @@ var Game = {
     },
 
     input: function(data){
-
+        Input.update(data);
     },
 
     update: function(data){
         Animation.update(data);
+        Movement.update(data);
         Physics.update(data);
     },
 

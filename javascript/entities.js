@@ -12,7 +12,7 @@ var Entities = {
         var exitPipe = new Entities.helpers.ExitPipe(50, 100, 30, 80);
 
         var coinLocations = [[250, 350], [250, 250], [350, 250], [350, 350], [450, 250], [450, 350], [550, 250], [550, 350], [650, 250], [650, 350]];
-        var wallLocations = [[0, 0, 1000, 0], [0, 0, 0, 1000], [0, 1000, 1000, 0], [1000, 0, 0, 1000], [80, 450, 920, 0]];
+        var wallLocations = [[0, 0, 1000, 0], [0, 0, 0, 1000], [0, 1000, 1000, 0], [1000, 0, 0, 1000], [80, 420, 920, 0]];
          
         data.entities = {};
         data.entities.background = background;
@@ -56,25 +56,86 @@ var Entities = {
             this.spriteAnimations = {
                 walkRight: {
                     frames: [
-                        new Entities.helpers.Sprite(img, 0, 0, 40, 40), 
-                        new Entities.helpers.Sprite(img, 50, 0, 40, 40), 
-                        new Entities.helpers.Sprite(img, 0, 0, 40, 40)
+                        new Entities.helpers.Sprite(img, 0, 0, 80, 65), 
+                        new Entities.helpers.Sprite(img, 75, 60, 80, 65), 
+                        new Entities.helpers.Sprite(img, 0, 0, 80, 65)
                     ],
                     currentFrame: 0,
                 },
                 walkLeft: {
                     frames: [
-                        new Entities.helpers.Sprite(img, 0, 0, 40, 40), 
-                        new Entities.helpers.Sprite(img, 50, 0, 40, 40), 
-                        new Entities.helpers.Sprite(img, 0, 0, 40, 40)
+                        new Entities.helpers.Sprite(img, 0, 0, 80, 65), 
+                        new Entities.helpers.Sprite(img, 75, 60, 80, 65), 
+                        new Entities.helpers.Sprite(img, 0, 0, 80, 65)
                     ],
                     currentFrame: 0,
                 },
-                standRight: new Entities.helpers.Sprite(img, 0, 0, 40, 40),
-                standLeft: new Entities.helpers.Sprite(img, 0, 0, 40, 40),
-                jumpLeft: new Entities.helpers.Sprite(img, 50, 50, 40, 40),
-                jumpRight: new Entities.helpers.Sprite(img, 50, 50, 40, 40),
+                standRight: new Entities.helpers.Sprite(img, 0, 0, 80, 65),
+                standLeft: new Entities.helpers.Sprite(img, 0, 0, 80, 65),
+                jumpLeft: new Entities.helpers.Sprite(img, 150, 0, 80, 65),
+                jumpRight: new Entities.helpers.Sprite(img, 150, 0, 80, 65),
+            };
+            this.states = {
+                jumping: {
+                    movement: function(data){
+                        if (self.velY === 0){
+                            // var jumpSound = self.jumpSound.cloneNode();
+                            // jumpSound.play();
+                            self.velY -= 23;
+                        }
+                    },
+                    animation: function(data){
+                        if (self.direction === 'right'){
+                            self.sprite = self.spriteAnimations.jumpRight;
+                        }else{
+                            self.sprite = self.spriteAnimations.jumpLeft;
+                        }
+                    }
+                },
+                standing: {
+                    movement: function(data){
+                        return;
+                    },
+                    animation: function(data){
+                        if (self.direction === 'right'){
+                            self.sprite = self.spriteAnimations.standRight;
+                        }else{
+                            self.sprite = self.spriteAnimations.standLeft;
+                        }
+                    }
+                },
+                walking: {
+                    movement: function(data){
+                        if (self.direction === 'right'){
+                            self.x += self.velX;
+                        }else{
+                            self.x -= self.velX;
+                        }
+                    },
+                    animation: function(data){
+                        if (self.direction === 'right'){
+                            if (data.animationFrame % 5 === 0){
+                                self.sprite = self.spriteAnimations.walkRight.frames[self.spriteAnimations.walkRight.currentFrame];
+                                self.spriteAnimations.walkRight.currentFrame++;
+
+                                if (self.spriteAnimations.walkRight.currentFrame > 2){
+                                    self.spriteAnimations.walkRight.currentFrame = 0;
+                                }
+                            }
+                        }else{
+                            if (data.animationFrame % 5 === 0){
+                                self.sprite = self.spriteAnimations.walkLeft.frames[self.spriteAnimations.walkLeft.currentFrame];
+                                self.spriteAnimations.walkLeft.currentFrame++;
+
+                                if (self.spriteAnimations.walkLeft.currentFrame > 2){
+                                    self.spriteAnimations.walkLeft.currentFrame = 0;
+                                }
+                            }
+                        }
+                    }
+                }
             }
+            this.currentState = self.states.standing;
             this.x = x;
             this.y = y;
             this.w = w;

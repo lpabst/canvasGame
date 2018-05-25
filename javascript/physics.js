@@ -51,8 +51,8 @@ var Physics = {
 
     helpers: {
         gravity: function(entity){
-            entity.velY += 1.2;
             entity.y += entity.velY;
+            entity.velY += 1.2;
         }
     }
 }

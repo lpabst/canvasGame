@@ -12,6 +12,37 @@ var Input = {
         })
     },
 
+    update: function(data){
+        var jack = data.entities.jack;
+
+        // Left arrow 
+        if (Input.helpers.isDown(37)){
+            if (jack.velY === 0){
+                jack.currentState = jack.states.walking;
+            }else{
+                jack.x -= jack.velX;
+            }
+
+            jack.direction = 'left';
+        }
+
+        // Right arrow
+        if (Input.helpers.isDown(39)){
+            if (jack.velY === 0){
+                jack.currentState = jack.states.walking;
+            }else{
+                jack.x += jack.velX;
+            }
+
+            jack.direction = 'right';
+        }
+
+        // Up arrow
+        if (Input.helpers.isPressed(38)){
+            jack.currentState = jack.states.jumping;
+        }
+    },
+
     helpers: {
         isDown: function(code){
             return Input.helpers.down[code];
@@ -27,8 +58,8 @@ var Input = {
             }
         },
 
+        down: {},
+        pressed: {},
     },
     
-    down: {},
-    pressed: {},
 }
