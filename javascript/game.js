@@ -75,6 +75,7 @@ var Game = {
 
     update: function(data){
         Animation.update(data);
+        Physics.update(data);
     },
 
     render: function(data){

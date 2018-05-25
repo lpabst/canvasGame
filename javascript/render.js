@@ -6,7 +6,7 @@ var Render = {
     update: function(data){
         data.canvas.fgCtx.clearRect(0, 0, data.canvas.fgCanvas.width, data.canvas.fgCanvas.height);
 
-        // Render.helpers.drawEntity(data.entities.jack, data.canvas.fgCanvas);
+        Render.helpers.drawEntity(data.entities.jack, data.canvas.fgCtx);
 
         data.entities.coinsArray.forEach( function(coin) {
             Render.helpers.drawEntity(coin, data.canvas.fgCtx);
