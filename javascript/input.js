@@ -14,9 +14,11 @@ var Input = {
 
     update: function(data){
         var jack = data.entities.jack;
+        var leftArrowDown = Input.helpers.isDown(37);
+        var rightArrowDown = Input.helpers.isDown(39);
+        var upArrowDown = Input.helpers.isDown(38);
 
-        // Left arrow 
-        if (Input.helpers.isDown(37)){
+        if (leftArrowDown){
             if (jack.velY === 0){
                 jack.currentState = jack.states.walking;
             }else{
@@ -26,8 +28,7 @@ var Input = {
             jack.direction = 'left';
         }
         
-        // Right arrow
-        else if (Input.helpers.isDown(39)){
+        if (rightArrowDown){
             if (jack.velY === 0){
                 jack.currentState = jack.states.walking;
             }else{
@@ -37,13 +38,12 @@ var Input = {
             jack.direction = 'right';
         }
 
-        // Up arrow
-        else if (Input.helpers.isPressed(38)){
+        if (upArrowDown){
             jack.currentState = jack.states.jumping;
         }
 
         // Otherwise he's just standing there
-        else{
+        if(!leftArrowDown && !rightArrowDown && !upArrowDown){
             jack.currentState = jack.states.standing;
         }
     },
