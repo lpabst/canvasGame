@@ -10,6 +10,7 @@ var Entities = {
 
         var jack = new Entities.helpers.Jack(data.spriteSheet, 100, 20, 80, 65);
         var exitPipe = new Entities.helpers.ExitPipe(50, 100, 30, 80);
+        var score = new Entities.helpers.Score(290, 70);
 
         var coinLocations = [[250, 350], [250, 250], [350, 250], [350, 350], [450, 250], [450, 350], [550, 250], [550, 350], [650, 250], [650, 350]];
         var wallLocations = [[0, 0, 1000, 0], [0, 0, 0, 1000], [0, 1000, 1000, 0], [1000, 0, 0, 1000], [80, 420, 920, 0]];
@@ -18,6 +19,7 @@ var Entities = {
         data.entities.background = background;
         data.entities.jack = jack;
         data.entities.exitPipe = exitPipe;
+        data.entities.score = score;
         data.entities.coinsArray = [];
         data.entities.wallsArray = [];
 
@@ -143,7 +145,7 @@ var Entities = {
 
             this.direction = 'right';
             this.velY = 0;
-            this.velX = 3.8;
+            this.velX = 4.5;
             this.coins = 0;
         },
 
@@ -161,6 +163,15 @@ var Entities = {
             this.y = y;
             this.w = w;
             this.h = h;
+        },
+
+        Score: function(x, y){
+            this.x = x;
+            this.y = y;
+            this.value = 0;
+            this.size = "25px";
+            this.font = 'Arial';
+            this.color = 'white';
         },
     }
 }

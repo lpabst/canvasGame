@@ -8,7 +8,7 @@ var Physics = {
         var jack = data.entities.jack;
 
         var entityCollisionCheck = function(entity){
-            if (jack.x < entity.x +entity.w && 
+            if (jack.x < entity.x + entity.w && 
                 jack.x + jack.w > entity.x && 
                 jack.y < entity.y + entity.h && 
                 jack.y + jack.h > entity.y){
@@ -20,6 +20,12 @@ var Physics = {
         data.entities.wallsArray.forEach(function(wall){
             entityCollisionCheck(wall);
         })
+
+        data.entities.coinsArray.forEach(function(coin){
+            entityCollisionCheck(coin);
+        })
+
+        entityCollisionCheck(data.entities.exitPipe);
     },
 
     handleCollision(data, entity){
@@ -43,9 +49,14 @@ var Physics = {
             }
 
         }else if (entity.type === 'exitPipe'){
-
+            // exit pipe code
         }else if (entity.type === 'coin'){
+            var coinsArray = data.entities.coinsArray;
+            var index = coinsArray.indexOf(entity);
 
+            coinsArray.splice(index, 1);
+            data.entities.score.value++;
+            jack.coins++;
         }
     },
 
