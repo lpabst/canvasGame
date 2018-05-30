@@ -54,9 +54,15 @@ var Physics = {
             var coinsArray = data.entities.coinsArray;
             var index = coinsArray.indexOf(entity);
 
-            coinsArray.splice(index, 1);
+            var newCoin = coinsArray.splice(index, 1)[0];
             data.entities.score.value++;
             jack.coins++;
+
+            // Add a new coin to the screen to replace the old one
+            console.log(newCoin);
+            newCoin.x = Math.floor(Math.random() * 1000);
+            newCoin.y = Math.floor(Math.random() * 200) + 200;
+            coinsArray.push(newCoin);
         }
     },
 
